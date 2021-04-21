@@ -1,0 +1,60 @@
+{
+    "name": "falconsw/elasticsearch",
+    "description": "Laravel, Lumen and Native php elasticseach query builder to build complex queries using an elegant syntax",
+    "keywords": [
+        "elasticsearch",
+        "php",
+        "laravel",
+        "lumen",
+        "scout",
+        "fulltext",
+        "indexing",
+        "builder"
+    ],
+    "license": "MIT",
+    "type": "package",
+    "support": {
+        "issues": "https://github.com/falconsw/elasticsearch/issues",
+        "source": "https://github.com/falconsw/elasticsearch"
+    },
+    "authors": [
+        {
+            "name": "Ömer Doğan",
+            "email": "omer_dogan@outlook.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Falconsw\\Elasticsearch\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Falconsw\\Elasticsearch\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=5.6.6",
+        "elasticsearch/elasticsearch": "^5.0|^6.0",
+        "illuminate/pagination": "*",
+        "illuminate/support": "*",
+        "symfony/var-dumper": "*",
+        "monolog/monolog": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Falconsw\\Elasticsearch\\ElasticsearchServiceProvider"
+            ],
+            "aliases": {
+                "ES": "Basemkhirat\\Elasticsearch\\Facades\\ES"
+            }
+        }
+    }
+}
