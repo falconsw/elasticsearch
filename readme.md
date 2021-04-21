@@ -2,7 +2,7 @@ This is a fork of the excellent library by @basemkhirat, who sadly seems to have
 As we rely on this library quite heavily, we will attempt to keep it up to date and compatible with newer Laravel and Elasticsearch versions.
 
 <p align="center">
-<!-- <a href="https://travis-ci.org/falconsw/elasticsearch"><img src="https://travis-ci.org/falconsw/elasticsearch.svg?branch=master" alt="Build Status"></a> -->
+<!-- <a href="https://www.travis-ci.com/falconsw/elasticsearch"><img src="https://www.travis-ci.com/falconsw/elasticsearch.svg?branch=master" alt="Build Status"></a> -->
 <a href="https://packagist.org/packages/falconsw/elasticsearch"><img src="https://poser.pugx.org/falconsw/elasticsearch/v/stable.svg" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/falconsw/elasticsearch"><img src="https://poser.pugx.org/falconsw/elasticsearch/d/total.svg" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/falconsw/elasticsearch"><img src="https://poser.pugx.org/falconsw/elasticsearch/license.svg" alt="License"></a>
@@ -24,7 +24,7 @@ As we rely on this library quite heavily, we will attempt to keep it up to date 
 
 - `php` >= 5.6.6 
   
-  See [Travis CI Builds](https://travis-ci.org/falconsw/elasticsearch).
+  See [Travis CI Builds](https://www.travis-ci.com/falconsw/elasticsearch).
 
 - `laravel/laravel` >= 5.* or `laravel/lumen` >= 5.* or `composer application`
 
