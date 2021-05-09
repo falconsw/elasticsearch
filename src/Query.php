@@ -370,7 +370,7 @@ class Query
     protected function isOperator($string)
     {
 
-        if (in_array($string, $this->operators)) {
+        if (in_array($string, $this->operators, true)) {
             return true;
         }
 
@@ -637,6 +637,27 @@ class Query
         }
 
         $this->must_not[] = ["terms" => [$name => $value]];
+
+        return $this;
+    }
+
+    /**
+     * Set the query or where in clause.
+     *
+     * @param       $name
+     * @param array $value
+     *
+     * @return $this
+     */
+    public function orWhere($name, $value = null)
+    {
+        if (is_callback_function($name)) {
+            $name($this);
+
+            return $this;
+        }
+
+        $this->should[] = ["term" => [$name => $value]];
 
         return $this;
     }
