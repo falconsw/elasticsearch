@@ -502,7 +502,7 @@ class Query
         }
 
         if ($operator == "like") {
-            $this->must[] = ["match" => [$name => $value]];
+            $this->must[] = ["prefix" => [$name => $value]];
         }
 
         if ($operator == "exists") {
@@ -553,7 +553,7 @@ class Query
         }
 
         if ($operator == "like") {
-            $this->must_not[] = ["match" => [$name => $value]];
+            $this->must_not[] = ["prefix" => [$name => $value]];
         }
 
         if ($operator == "exists") {
