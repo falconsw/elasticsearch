@@ -88,6 +88,9 @@ class Query
      */
     public $must_not = [];
 
+    /** @var array $should Query bool should */
+    protected $should = [];
+
     /**
      * Query returned fields list
      * @var array
@@ -649,7 +652,7 @@ class Query
      *
      * @return $this
      */
-    public function orWhere($name, $value = null)
+    public function orWhere($name, $operator, $value = null)
     {
         if (is_callback_function($name)) {
             $name($this);
@@ -657,7 +660,14 @@ class Query
             return $this;
         }
 
-        $this->should[] = ["term" => [$name => $value]];
+        if ($operator == "like") {
+            $this->should[] = ["prefix" => [$name => $value]];
+        } else {
+            $this->should[] = ["term" => [$name => $value]];
+
+        }
+
+
 
         return $this;
     }
@@ -793,8 +803,6 @@ class Query
             $body["_source"] = array_merge($_source, $this->_source);
         }
 
-        $body["query"] = isset($body["query"]) ? $body["query"]: [];
-
         if (count($this->must)) {
             $body["query"]["bool"]["must"] = $this->must;
         }
@@ -803,33 +811,21 @@ class Query
             $body["query"]["bool"]["must_not"] = $this->must_not;
         }
 
+        if (count($this->should)) {
+            $body["query"]["bool"]["should"] = $this->should;
+            $body["query"]["bool"]["minimum_should_match"] = 1;
+        }
+
         if (count($this->filter)) {
             $body["query"]["bool"]["filter"] = $this->filter;
         }
 
-        if(count($body["query"]) == 0){
-            unset($body["query"]);
-        }
-
-//        $body = [
-//            "query" => [
-//                "nested" => [
-//                    "path" => "pages",
-//                    "query" => $body["query"],
-//                    "inner_hits" => [
-//                        "highlight" => [
-//                            "fields" => [
-//                                "pages.content" => (object) []
-//                            ]
-//                        ]
-//                    ]
-//                ]
-//            ]
-//        ];
-
         if (count($this->sort)) {
+
             $sortFields = array_key_exists("sort", $body) ? $body["sort"] : [];
+
             $body["sort"] = array_unique(array_merge($sortFields, $this->sort), SORT_REGULAR);
+
         }
 
         $this->body = $body;
