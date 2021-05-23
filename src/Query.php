@@ -466,7 +466,7 @@ class Query
      * @param null $value
      * @return $this
      */
-    public function where($name, $operator = "=", $value = NULL)
+    public function where($name, $operator = "=", $value = NULL, $or = false)
     {
 
         if (is_callback_function($name)) {
@@ -505,7 +505,11 @@ class Query
         }
 
         if ($operator == "like") {
-            $this->must[] = ["prefix" => [$name => $value]];
+            if($or){
+                $this->should[] = ["wildcard" => [$name => $value]];
+            } else {
+                $this->must[] = ["wildcard" => [$name => $value]];
+            }
         }
 
         if ($operator == "exists") {
@@ -660,16 +664,7 @@ class Query
             return $this;
         }
 
-        if ($operator == "like") {
-            $this->should[] = ["prefix" => [$name => $value]];
-        } else {
-            $this->should[] = ["term" => [$name => $value]];
-
-        }
-
-
-
-        return $this;
+        return $this->where($name, $operator, $value, true);
     }
 
 
@@ -813,7 +808,7 @@ class Query
 
         if (count($this->should)) {
             $body["query"]["bool"]["should"] = $this->should;
-            $body["query"]["bool"]["minimum_should_match"] = 0;
+            $body["query"]["bool"]["minimum_should_match"] = 1;
         }
 
         if (count($this->filter)) {
@@ -827,6 +822,7 @@ class Query
             $body["sort"] = array_unique(array_merge($sortFields, $this->sort), SORT_REGULAR);
 
         }
+
 
         $this->body = $body;
 
