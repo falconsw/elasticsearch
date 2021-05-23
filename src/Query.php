@@ -813,7 +813,7 @@ class Query
 
         if (count($this->should)) {
             $body["query"]["bool"]["should"] = $this->should;
-            $body["query"]["bool"]["minimum_should_match"] = 1;
+            $body["query"]["bool"]["minimum_should_match"] = 0;
         }
 
         if (count($this->filter)) {
